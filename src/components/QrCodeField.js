@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import QRCode from 'qrcode';
 import { makeStyles } from '@material-ui/core';
 import fallbackqrcode from './fallback-qr-transparent.png'
+import { useTranslation } from 'react-i18next';
 
 /*
 Will assume that props for acctno and amount are already validated
@@ -17,9 +18,9 @@ const generateQR = async (text) => {
     }
   }
   
-const qrprops = async (acctno, amount = NaN) => {
+const qrprops = async (t, acctno, amount = NaN) => {
     let url = 'https://github.com/CurryEleison/mobilepay-qrcodes/';
-    let alt = 'Put in your MobilePay Number';
+    let alt = t('qrfield_fallback','Put in your MobilePay Number');
     if (acctno) {
         if (amount > 0.0) {
             url = 'mobilepay://send?phone=' + acctno + '&amount=' + amount.toFixed(2)
@@ -66,21 +67,24 @@ function InvalidCodeField(props) {
 
 
 function QrCodeField(props) {
+    const { t, i18n } = useTranslation();
     const classes = useStyles();
 
     const [isValid, setIsValid] = useState(false);
     const [qrProps, setQrProps] = useState({src: '', alt:''});
 
-    const setValidQrProps = async (acctno, amount) => {
-        const stuff = await qrprops(acctno, amount);
+    const setValidQrProps = async (t, acctno, amount) => {
+        const stuff = await qrprops(t, acctno, amount);
         setQrProps(stuff);
     }
 
+    // TODO: Am a little sceptical of the translation handling here
     useEffect(() => {
         const valid = !!props.acctno;
+        console.log({amount: props.amount, phone: props.acctno});
         setIsValid(valid);
-        setValidQrProps(props.acctno, props.amount);
-    }, [props.acctno, props.amount]);
+        setValidQrProps(t, props.acctno, props.amount);
+    }, [i18n, t, props.acctno, props.amount]);
 
     if (!isValid) {
         return (<InvalidCodeField {...qrProps} />);

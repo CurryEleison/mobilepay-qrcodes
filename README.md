@@ -6,6 +6,9 @@ If you want to receive funds from someone, just type in your phone/MobilePay
 number and optionally a currency amount, and ask people to point their camera at
 your screen.
 
+MobilePay is a trademark of Danske Bank. This app is not associated with or
+licensed by Danske Bank or MobilePay.
+
 ## Building
 
 There's no backend and you don't need to have MobilePay installed to use it.
@@ -16,12 +19,13 @@ and the assets in `./build` are ready to be deployed.
 
 ## TODO
 
-- [ ] Add Danish translations
+- [x] Add Danish translations
 - [ ] Spruce up the configuration dialog
-- [ ] Add helptext, privacy statement, credits etc
-- [ ] Add footer statement
+- [/] Add helptext, privacy statement, credits etc
+- [/] Add footer statement
 - [ ] Improve layout
 - [ ] Better icon
+- [ ] Dark mode
 - [ ] Point settings storage back to localStorage
 - [ ] Optional: Add analytics & cookie warning
 - [ ] Optional: Make it slightly more SEO friendly
@@ -41,3 +45,5 @@ Snippets that helped me include:
   https://gist.github.com/laytong/e2aeecf32283c3a1ab6edf8e38a78903#gistcomment-2881609
 - localStorage hook by Dennis Vash from https://stackoverflow.com/a/62106152
 
+Also:
+- Favicon generator at https://realfavicongenerator.net/ 

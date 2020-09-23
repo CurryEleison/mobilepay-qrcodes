@@ -24,3 +24,5 @@ yarn-error.log*
 
 # VS Code
 .vscode
+public/locales/en/translation_old.json
+public/locales/da/translation_old.json

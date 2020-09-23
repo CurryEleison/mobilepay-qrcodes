@@ -5,6 +5,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Icon from '@material-ui/core/Icon';
 import Grid from '@material-ui/core/Grid';
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 
 import QrCodeField from './QrCodeField';
 import {cleanAndValidateMobilePay} from '../modules/validations';
@@ -39,11 +40,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const acctnoReducer = (_, action) => {
+const acctnoReducer = (t) => ((_, action) => {
     const newacctno = action.payload;
-
-    console.log(newacctno);
-    const status = cleanAndValidateMobilePay(newacctno);
+    const status = cleanAndValidateMobilePay(t, newacctno);
     const iserror = ((!!status.validationError) && (status.validationError !== 'BLANK'));
 
     // Room for more validation here. Refactor function out eventually
@@ -56,10 +55,10 @@ const acctnoReducer = (_, action) => {
     
     action.onValidated(status.cleanMobilePay);
     return {value: newacctno};
-}
+})
 
 
-const amountReducer = (state, action) => {
+const amountReducer = (t) => ((state, action) => {
     const newamount = action.payload;
 
     // need to work really hard to figure out the best guess at the amount here
@@ -67,19 +66,22 @@ const amountReducer = (state, action) => {
 
     action.onValidated(parsedamount);
     if (newamount && Number.isNaN(parsedamount)) {
-        return {value: newamount, error: true, helperText: 'Not a number?'}
+        return {value: newamount, error: true, helperText: t('validation_invalid_amount')}
     }
     return {value: newamount, error: false, helperText: ''};
-}
+})
 
 function QrCodeForm(props) {
+    const { t } = useTranslation();
+
     const classes = useStyles();
 
     const [validatedAcctNo, setValidatedAcctNo] = useState();
     const [validatedAmount, setValidatedAmount] = useState(NaN);
 
-    const [acctno, setAcctno] = useReducer(acctnoReducer, {value: ''});
-    const [amount, setAmount] = useReducer(amountReducer,  {value: ''});
+
+    const [acctno, setAcctno] = useReducer(acctnoReducer(t), {value: ''});
+    const [amount, setAmount] = useReducer(amountReducer(t),  {value: ''});
 
     useEffect( () => {
            setAcctno({payload: props.acctno, onValidated: setValidatedAcctNo})
@@ -96,8 +98,8 @@ function QrCodeForm(props) {
                             {...acctno}
                             onChange={(e) => { setAcctno({ payload: e.target.value, onValidated: setValidatedAcctNo }) }}
                             variant="outlined"
-                            label="MobilePay Number"
-                            placeholder="Your MobilePay"
+                            label={t('mainform_mobilepay_label')}
+                            placeholder={t('mainform_mobilepay_placeholder')}
                             required
                             className={classes.textField}
                             InputProps={{
@@ -106,7 +108,7 @@ function QrCodeForm(props) {
                                 },
                                 startAdornment: <InputAdornment position="start">
                                     <Icon>
-                                        <img src={mobilepaylight} alt="mobilepay"
+                                        <img src={mobilepaylight} alt={t('mainform_mobilepay_alt')}
                                         /> </Icon>
                                 </InputAdornment>
                             }}
@@ -117,14 +119,14 @@ function QrCodeForm(props) {
                             {...amount}
                             onChange={(e) => { setAmount({ payload: e.target.value, onValidated: setValidatedAmount }) }}
                             variant="outlined"
-                            label="Amount"
-                            placeholder="evt beløb"
+                            label={t('mainform_amount_label')}
+                            placeholder={t('mainform_amount_placeholder')}
                             className={classes.textField}
                             InputProps={{
                                 classes: {
                                     input: classes.inputText,
                                 },
-                                startAdornment: <InputAdornment position="start">kr.</InputAdornment>,
+                                startAdornment: <InputAdornment position="start">{t('mainform_amount_decorator')}</InputAdornment>,
                             }}
                             FormHelperTextProps={{
                                 style: { 

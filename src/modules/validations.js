@@ -1,18 +1,18 @@
 
-const cleanAndValidateMobilePay = (phone) => {
+const cleanAndValidateMobilePay = (t, phone) => {
     let validationError = null;
     const cleanedacctno = (phone || '').replace(/\D/g, '');
     if (cleanedacctno === '') {
-        validationError = 'BLANK';
+        validationError = t('BLANK');
     }
     else if ((/[^0-9\s]/.test(phone))) {
-        validationError = 'ONLYNUMBERS';
+        validationError = t('ONLYNUMBERS');
     } else {
         if (cleanedacctno.length < 6) {
-            validationError = "TOOFEWDIGITS";
+            validationError = t('TOOFEWDIGITS');
         }
         if (cleanedacctno.length > 8) {
-            validationError = "TOOMANYDIGITS";
+            validationError = t('TOOMANYDIGITS');
         }
     }
     return {

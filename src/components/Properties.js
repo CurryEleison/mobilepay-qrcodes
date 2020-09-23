@@ -3,6 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Help from '@material-ui/icons/Help';
 import { Tooltip } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 
 import InfoDialog from './InfoDialog';
 import SettingsDialog from './SettingsDialog';
@@ -10,6 +11,8 @@ import SettingsDialog from './SettingsDialog';
 
 
 function Properties(props) {
+    const {t, i18n} = useTranslation();
+    
     const [infoOpen, setInfoOpen] = useState(false);
     const [settingsOpen, setSettingsOpen] = useState(false);
 
@@ -31,12 +34,12 @@ function Properties(props) {
     }
     return (
      <div>
-         <Tooltip title="Help & info">
+         <Tooltip title={t('properties_help_tooltip','Help & info')}>
             <IconButton onClick={handleClickInfo}>
                 <Help /> 
             </IconButton>
          </Tooltip>
-         <Tooltip title="Settings">
+         <Tooltip title={t('propeties_settings_tooltip','Settings')}>
             <IconButton onClick={handleClickSettings}>
             <MoreVertIcon />
             </IconButton>
