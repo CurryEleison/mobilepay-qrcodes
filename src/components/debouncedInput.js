@@ -1,3 +1,7 @@
+/*
+Fetched from https://gist.github.com/laytong/e2aeecf32283c3a1ab6edf8e38a78903#gistcomment-2881609 by James Rees
+*/
+
 import React, { Component } from 'react'
 import debounce from 'lodash/debounce'
 
