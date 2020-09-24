@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import QrCodeField from './QrCodeField';
 import {cleanAndValidateMobilePay} from '../modules/validations';
 // import debouncedInput from './debouncedInput'
-import mobilepaylight from './mobilepay-light.svg';
+import mobilepaylight from './mobilepay-input.svg';
 
 // const  DebouncedTextField = debouncedInput(TextField, { timeout: 500 })
 
@@ -31,9 +31,13 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'center',
     },
-    amountAlignment: {
+    amountalignment: {
         [theme.breakpoints.up('md')]:
         { alignItems: 'flex-end', },
+
+    },
+    acctnoicon: {
+        fill: 'currentColor'
 
     }
 
@@ -108,13 +112,13 @@ function QrCodeForm(props) {
                                 },
                                 startAdornment: <InputAdornment position="start">
                                     <Icon>
-                                        <img src={mobilepaylight} alt={t('mainform_mobilepay_alt')}
+                                        <img className={classes.acctnoicon} src={mobilepaylight} alt={t('mainform_mobilepay_alt')}
                                         /> </Icon>
                                 </InputAdornment>
                             }}
                         />
                     </Grid>
-                    <Grid item xs={12} sm={6} md={12} className={clsx(classes.flexcentered, classes.amountAlignment)}>
+                    <Grid item xs={12} sm={6} md={12} className={clsx(classes.flexcentered, classes.amountalignment)}>
                         <TextField
                             {...amount}
                             onChange={(e) => { setAmount({ payload: e.target.value, onValidated: setValidatedAmount }) }}
