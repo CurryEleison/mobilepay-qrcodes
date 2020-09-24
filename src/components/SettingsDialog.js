@@ -60,6 +60,7 @@ function SettingsDialog(props) {
 
     const [title, setTitle] = useState(props.storedSettings.title || '');
     const [language, setLanguage] = useState(props.storedSettings.language || props.settings.language);
+    const [palette, setPalette] = useState(props.storedSettings.palette || 'auto');
 
 
     const handleAcctNoChange = (newVal) => {
@@ -84,11 +85,17 @@ function SettingsDialog(props) {
     }
 
     const handleLanguageChange = (newLanguage) => {
-        console.log(newLanguage);
         setLanguage(newLanguage);
         props.onChange({
             ...props.storedSettings,
             language: newLanguage,
+        })
+    }
+    const handlePaletteChange = (newPalette) => {
+        setPalette(newPalette);
+        props.onChange({
+            ...props.storedSettings,
+            palette: (newPalette === 'auto') ? '' : newPalette,
         })
     }
 
@@ -134,10 +141,24 @@ function SettingsDialog(props) {
                         <MenuItem value="en"><IconButton><Flags.GB className={classes.flag} /></IconButton> {t('languagename_en', 'English')}</MenuItem>
                     </Select>
                 </div>
+                <div>
+                    <Select
+                        label={t('settings_palette_label', 'Dark mode')}
+                        value={palette}
+                        variant="outlined"
+                        style={{ width: '12em' }}
+                        onChange={(e) => { handlePaletteChange(e.target.value) }}
+
+                    >
+                        <MenuItem value="auto">{t('settings_pallete_auto', 'Auto')}</MenuItem>
+                        <MenuItem value="light">{t('settings_pallete_light', 'Light')}</MenuItem>
+                        <MenuItem value="dark">{t('settings_pallete_dark', 'Dark')}</MenuItem>
+                    </Select>
+                </div>
 
             </DialogContent>
             <DialogActions>
-                <Button onClick={closeInfo} color="primary">{t('settings_close', 'Done')}</Button>
+                <Button onClick={closeInfo}>{t('settings_close', 'Done')}</Button>
             </DialogActions>
         </Dialog>
     )

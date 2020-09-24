@@ -23,12 +23,12 @@ and the assets in `./build` are ready to be deployed.
 - [ ] Spruce up the configuration dialog
 - [/] Add helptext, privacy statement, credits etc
 - [/] Add footer statement
-- [ ] Improve layout
+- [x] Improve layout
 - [ ] Better icon
-- [ ] Dark mode
-- [ ] Point settings storage back to localStorage
+- [x] Dark mode
+- [x] Point settings storage back to localStorage
 - [ ] Optional: Add analytics & cookie warning
-- [ ] Optional: Make it slightly more SEO friendly
+- [ ] Optional: Make it slightly more SEO friendly w. SSR
 - [ ] Add prettier
 - [ ] Some tests
 
