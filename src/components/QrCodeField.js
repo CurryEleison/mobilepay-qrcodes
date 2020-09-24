@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     },
     invalidacctno: {
         backgroundImage: `url(${fallbackqrcode})`,
+        ...theme.typography.caption,
         fontSize: theme.typography.h2.fontSize,
         width: '14ch',
         height: '14ch',

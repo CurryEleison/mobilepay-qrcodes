@@ -24,7 +24,14 @@ const useStyles = makeStyles((theme) => ({
     centeredField: {
         display: 'flex',
         justifyContent: 'center',
-    }
+    },
+    spacer: {
+        [theme.breakpoints.down('md')]:
+        {height: 0},
+        [theme.breakpoints.up('md')]:
+        {height: '3rem'},
+    },
+    
 }));
 
 function Skeleton(props) {
@@ -53,6 +60,9 @@ function Skeleton(props) {
                     acctno={props.settings.acctno}
                 />
                 
+            </Grid>
+            <Grid item>
+                <div className={classes.spacer}></div>
             </Grid>
             <Grid item className={classes.centeredField}>
                 <Footer />
