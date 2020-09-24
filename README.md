@@ -1,6 +1,7 @@
 # MobilePay QR Code Generator
 
-This is a small React app to generate QR codes for MobilePay payments. 
+This is a small React app to generate QR codes for MobilePay payments. It's
+running at https://mobilepay-qrcode-generator.temp.dk/ .
 
 If you want to receive funds from someone, just type in your phone/MobilePay
 number and optionally a currency amount, and ask people to point their camera at
@@ -31,6 +32,7 @@ and the assets in `./build` are ready to be deployed.
 - [ ] Optional: Make it slightly more SEO friendly w. SSR
 - [ ] Add prettier
 - [ ] Some tests
+- [ ] enable service worker
 
 ## Credits
 
