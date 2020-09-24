@@ -1,6 +1,6 @@
 import React, {useState, useReducer, useEffect} from 'react';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Icon from '@material-ui/core/Icon';
 import Grid from '@material-ui/core/Grid';
@@ -10,7 +10,8 @@ import { useTranslation } from 'react-i18next';
 import QrCodeField from './QrCodeField';
 import {cleanAndValidateMobilePay} from '../modules/validations';
 // import debouncedInput from './debouncedInput'
-import mobilepaylight from './mobilepay-input.svg';
+import mobilepaylight from './mobilepay-input-light.svg';
+import mobilepaydark from './mobilepay-input-dark.svg';
 
 // const  DebouncedTextField = debouncedInput(TextField, { timeout: 500 })
 
@@ -75,13 +76,24 @@ const amountReducer = (t) => ((state, action) => {
     return {value: newamount, error: false, helperText: ''};
 })
 
+const mobilepayicon = (theme) => {
+    
+    if (theme && theme.palette && theme.palette.type && theme.palette.type === 'dark') {
+        return mobilepaydark;
+    }
+    return mobilepaylight
+}
+
 function QrCodeForm(props) {
     const { t } = useTranslation();
 
     const classes = useStyles();
+    const theme = useTheme();
 
     const [validatedAcctNo, setValidatedAcctNo] = useState();
     const [validatedAmount, setValidatedAmount] = useState(NaN);
+
+    const [acctnosvg, setAcctnosvg] = useState(mobilepayicon(theme));
 
 
     const [acctno, setAcctno] = useReducer(acctnoReducer(t), {value: ''});
@@ -90,6 +102,11 @@ function QrCodeForm(props) {
     useEffect( () => {
            setAcctno({payload: props.acctno, onValidated: setValidatedAcctNo})
         }, [props.acctno]);
+
+    useEffect( () => {
+        setAcctnosvg(mobilepayicon(theme));
+    }, [theme]);
+    
 
     return (
         <Grid container className={classes.mainform} spacing={4}>
@@ -112,7 +129,7 @@ function QrCodeForm(props) {
                                 },
                                 startAdornment: <InputAdornment position="start">
                                     <Icon>
-                                        <img className={classes.acctnoicon} src={mobilepaylight} alt={t('mainform_mobilepay_alt')}
+                                        <img className={classes.acctnoicon} src={acctnosvg} alt={t('mainform_mobilepay_alt')}
                                         /> </Icon>
                                 </InputAdornment>
                             }}

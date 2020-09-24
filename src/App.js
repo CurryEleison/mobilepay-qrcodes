@@ -9,7 +9,7 @@ import Skeleton from './components/Skeleton';
 
 const defaultTheme = createMuiTheme({
   palette: {
-    //type: 'dark',
+    // type: 'dark',
   },
 });
 const defaultSettings = (i18n) => ({
