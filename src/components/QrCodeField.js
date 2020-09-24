@@ -82,7 +82,6 @@ function QrCodeField(props) {
     // TODO: Am a little sceptical of the translation handling here
     useEffect(() => {
         const valid = !!props.acctno;
-        console.log({amount: props.amount, phone: props.acctno});
         setIsValid(valid);
         setValidQrProps(t, props.acctno, props.amount);
     }, [i18n, t, props.acctno, props.amount]);
@@ -91,7 +90,7 @@ function QrCodeField(props) {
         return (<InvalidCodeField {...qrProps} />);
     }
     return (
-        <img className={classes.qrcodeimg} {...qrProps} />
+        <img alt='' className={classes.qrcodeimg} {...qrProps} />
     )
 }
 

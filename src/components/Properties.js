@@ -11,7 +11,7 @@ import SettingsDialog from './SettingsDialog';
 
 
 function Properties(props) {
-    const {t, i18n} = useTranslation();
+    const {t /*, i18n */} = useTranslation();
     
     const [infoOpen, setInfoOpen] = useState(false);
     const [settingsOpen, setSettingsOpen] = useState(false);

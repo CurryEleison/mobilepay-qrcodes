@@ -41,7 +41,7 @@ const defaultTheme = (settings, detecteddarkmode) => {
 
 
 function App() {
-  const { t, i18n } = useTranslation();
+  const { /* t, */ i18n } = useTranslation();
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');  
 
   const [storedSettings, setStoredSettings] = useLocalStorage('settings', {});
