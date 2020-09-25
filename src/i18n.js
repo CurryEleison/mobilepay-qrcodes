@@ -12,7 +12,6 @@ i18n
     .use(initReactI18next)
     .init({
         debug: !!REACT_APP_DEBUG_I18NEXT,
-        lng: 'da',
         fallbackLng: 'da',
         whitelist: ['en', 'da'],
 
