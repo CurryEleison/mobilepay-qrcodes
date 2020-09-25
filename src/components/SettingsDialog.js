@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
@@ -18,7 +17,7 @@ import { useTranslation } from 'react-i18next';
 
 import debouncedInput from './debouncedInput'
 import {cleanAndValidateMobilePay} from '../modules/validations';
-
+import { NumberFormatDkPhone } from './NumberFormatCustom';
 
 const  DebouncedTextField = debouncedInput(TextField, { timeout: 500 })
 
@@ -32,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
         minWidth: '15rem',
       },
+    inputTextSize: {
+        fontSize: theme.typography.h5.fontSize,
+    },
 }))
 
 
@@ -108,12 +110,20 @@ function SettingsDialog(props) {
             <DialogTitle id="responsive-dialog-title">{t('settings_title', 'Setup')}</DialogTitle>
             <DialogContent>
             <FormControl className={classes.formControl}>
-                    <DebouncedTextField
-                        value={acctno}
-                        label={t('settings_mobilepay_label','MobilePay Number')}
-                        onChange={(e) => { handleAcctNoChange(e.target.value) }}
-                        {...acctnoHelp}
-                        
+                <DebouncedTextField
+                    id="settings-acctno"
+                    value={acctno}
+                    name="acctno"
+                    label={t('settings_mobilepay_label','MobilePay Number')}
+                    onChange={(e) => { handleAcctNoChange(e.target.value) }}
+                    {...acctnoHelp}
+                    InputProps={{
+                        inputComponent: NumberFormatDkPhone,
+                        classes: {
+                            input: classes.inputTextSize,
+                        },
+                    }}
+                    
                     />
                     </FormControl>
                 <FormControl className={classes.formControl}>
@@ -122,7 +132,11 @@ function SettingsDialog(props) {
                         value={title}
                         label={t('settings_headline_label', 'Headline')}
                         onChange={(e) => { handleTitleChange(e.target.value) }}
-                        
+                        InputProps={{
+                            classes: {
+                                input: classes.inputTextSize,
+                            },
+                        }}
                     />
                     </FormControl>
                     <FormControl className={classes.formControl}>
@@ -133,9 +147,10 @@ function SettingsDialog(props) {
                         value={language}
                         style={{ width: '12em' }}
                         onChange={(e) => { handleLanguageChange(e.target.value) }}
+                        className={classes.inputTextSize}
                     >
-                        <MenuItem value="da"><IconButton><Flags.DK className={classes.flag} /></IconButton> {t('languagename_da', 'Dansk')}</MenuItem>
-                        <MenuItem value="en"><IconButton><Flags.GB className={classes.flag} /></IconButton> {t('languagename_en', 'English')}</MenuItem>
+                        <MenuItem value="da"><IconButton size="small"><Flags.DK className={classes.flag} /></IconButton> {t('languagename_da', 'Dansk')}</MenuItem>
+                        <MenuItem value="en"><IconButton size="small"><Flags.GB className={classes.flag} /></IconButton> {t('languagename_en', 'English')}</MenuItem>
                     </Select>
                     </FormControl>
                     <FormControl className={classes.formControl}>
@@ -146,6 +161,7 @@ function SettingsDialog(props) {
                         value={palette}
                         style={{ width: '12em' }}
                         onChange={(e) => { handlePaletteChange(e.target.value) }}
+                        className={classes.inputTextSize}
 
                     >
                         <MenuItem value="auto">{t('settings_pallete_auto', 'Auto')}</MenuItem>

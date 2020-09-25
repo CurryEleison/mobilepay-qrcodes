@@ -21,7 +21,7 @@ and the assets in `./build` are ready to be deployed.
 ## TODO
 
 - [x] Add Danish translations
-- [ ] Spruce up the configuration dialog
+- [x] Spruce up the configuration dialog
 - [/] Add helptext, privacy statement, credits etc
 - [/] Add footer statement
 - [x] Improve layout
