@@ -8,6 +8,9 @@ import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import Flags from 'country-flag-icons/react/3x2';
@@ -21,13 +24,14 @@ const  DebouncedTextField = debouncedInput(TextField, { timeout: 500 })
 
 
 const useStyles = makeStyles((theme) => ({
-    textfield: {
-        width: '15rem',
-    },
     flag: {
         height: '1rem',
 
-    }
+    },
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: '15rem',
+      },
 }))
 
 
@@ -49,18 +53,12 @@ function SettingsDialog(props) {
         props.onClose();
     }
 
-    // useEffect(() => {
-    //     console.log(props.storedSettings);
-    //     console.log(props.settings);
-    // }, [props.storedSettings]);
-
-
     const [acctno, setAcctno] = useState(props.storedSettings.acctno || '');
     const [acctnoHelp, setAcctnoHelp] = useState({error: false, helperText: ''});
 
     const [title, setTitle] = useState(props.storedSettings.title || '');
-    const [language, setLanguage] = useState(props.storedSettings.language || props.settings.language);
-    const [palette, setPalette] = useState(props.storedSettings.palette || 'auto');
+    const [language, setLanguage] = useState(props.storedSettings.language || '' );
+    const [palette, setPalette] = useState(props.storedSettings.palette || '');
 
 
     const handleAcctNoChange = (newVal) => {
@@ -109,43 +107,43 @@ function SettingsDialog(props) {
         >
             <DialogTitle id="responsive-dialog-title">{t('settings_title', 'Setup')}</DialogTitle>
             <DialogContent>
-                <div>
+            <FormControl className={classes.formControl}>
                     <DebouncedTextField
                         value={acctno}
-                        variant="outlined"
                         label={t('settings_mobilepay_label','MobilePay Number')}
                         onChange={(e) => { handleAcctNoChange(e.target.value) }}
                         {...acctnoHelp}
-                        className={classes.textfield}
+                        
                     />
-                </div>
-                <div>
+                    </FormControl>
+                <FormControl className={classes.formControl}>
 
                     <TextField
                         value={title}
-                        variant="outlined"
                         label={t('settings_headline_label', 'Headline')}
                         onChange={(e) => { handleTitleChange(e.target.value) }}
-                        className={classes.textfield}
+                        
                     />
-                </div>
-                <div>
+                    </FormControl>
+                    <FormControl className={classes.formControl}>
+                    <InputLabel id="settings_language_label">{t('settings_langugage_label', 'Language')}</InputLabel>
                     <Select
-                        label="Language"
+                        id="settings_language"
+                        labelId="settings_language_label"
                         value={language}
-                        variant="outlined"
                         style={{ width: '12em' }}
                         onChange={(e) => { handleLanguageChange(e.target.value) }}
                     >
                         <MenuItem value="da"><IconButton><Flags.DK className={classes.flag} /></IconButton> {t('languagename_da', 'Dansk')}</MenuItem>
                         <MenuItem value="en"><IconButton><Flags.GB className={classes.flag} /></IconButton> {t('languagename_en', 'English')}</MenuItem>
                     </Select>
-                </div>
-                <div>
+                    </FormControl>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel id="settings_palette_label">{t('settings_palette_label', 'Dark mode')}</InputLabel>
                     <Select
-                        label={t('settings_palette_label', 'Dark mode')}
+                        id="settings_palette"
+                        labelId="settings_palette_label"
                         value={palette}
-                        variant="outlined"
                         style={{ width: '12em' }}
                         onChange={(e) => { handlePaletteChange(e.target.value) }}
 
@@ -154,7 +152,7 @@ function SettingsDialog(props) {
                         <MenuItem value="light">{t('settings_pallete_light', 'Light')}</MenuItem>
                         <MenuItem value="dark">{t('settings_pallete_dark', 'Dark')}</MenuItem>
                     </Select>
-                </div>
+                    </FormControl>
 
             </DialogContent>
             <DialogActions>
