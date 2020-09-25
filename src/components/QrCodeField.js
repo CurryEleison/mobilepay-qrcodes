@@ -12,7 +12,7 @@ display
 
 const generateQR = async (text) => {
     try {
-      return await QRCode.toDataURL(text, {margin: 0});
+      return await QRCode.toString(text, {margin: 0, type: 'svg', width: 300});
     } catch (err) {
       console.error(err)
     }
@@ -90,7 +90,7 @@ function QrCodeField(props) {
         return (<InvalidCodeField {...qrProps} />);
     }
     return (
-        <img alt='' className={classes.qrcodeimg} {...qrProps} />
+        <img src={`data:image/svg+xml;utf8,${encodeURIComponent(qrProps.src)}`} alt={qrProps.alt || ''} />
     )
 }
 
