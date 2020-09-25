@@ -7,17 +7,17 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 const { REACT_APP_DEBUG_I18NEXT } = process.env;
 
 i18n
-    .use(Backend)
-    .use(LanguageDetector)
-    .use(initReactI18next)
-    .init({
-        debug: !!REACT_APP_DEBUG_I18NEXT,
-        fallbackLng: 'da',
-        whitelist: ['en', 'da'],
+	.use(Backend)
+	.use(LanguageDetector)
+	.use(initReactI18next)
+	.init({
+		debug: !!REACT_APP_DEBUG_I18NEXT,
+		fallbackLng: 'da',
+		whitelist: ['en', 'da'],
 
-        interpolation: {
-            escapeValue: false,
-        },
-    });
+		interpolation: {
+			escapeValue: false,
+		},
+	});
 
 export default i18n;

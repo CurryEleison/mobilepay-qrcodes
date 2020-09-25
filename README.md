@@ -22,15 +22,15 @@ and the assets in `./build` are ready to be deployed.
 
 - [x] Add Danish translations
 - [x] Spruce up the configuration dialog
-- [/] Add helptext, privacy statement, credits etc
-- [/] Add footer statement
+- [x] Add helptext, privacy statement, credits etc
+- [x] Add footer statement
 - [x] Improve layout
 - [ ] Better icon
 - [x] Dark mode
 - [x] Point settings storage back to localStorage
 - [ ] Optional: Add analytics & cookie warning
 - [ ] Optional: Make it slightly more SEO friendly w. SSR
-- [ ] Add prettier
+- [x] Add prettier
 - [ ] Some tests
 - [ ] enable service worker
 
